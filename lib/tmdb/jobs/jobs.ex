@@ -3,7 +3,6 @@ defmodule Tmdb.Jobs do
   Jobs Endpoint
     Get information about jobs, only Tmdb.Jobs.list available for now.
   """
-  use Tmdb.Base
 
   @doc """
   Get a list of valid jobs.
@@ -25,7 +24,7 @@ defmodule Tmdb.Jobs do
           "Special Guest"]}]}
         ...
   """
-  def list do
-    get!("job/list?").body
+  def list(client) do
+    Tesla.get!(client, "job/list").body
   end
 end

@@ -1,40 +1,38 @@
 defmodule Tmdb.Search do
-  use Tmdb.Base
-
-  def companies(query, params \\ %{}) do
-    search_api("company", query, params)
+  def companies(client, query, params \\ []) do
+    search_api(client, "company", query, params)
   end
 
-  def collections(query, params \\ %{}) do
-    search_api("collection", query, params)
+  def collections(client, query, params \\ []) do
+    search_api(client, "collection", query, params)
   end
 
-  def keywords(query, params \\ %{}) do
-    search_api("keyword", query, params)
+  def keywords(client, query, params \\ []) do
+    search_api(client, "keyword", query, params)
   end
 
-  def lists(query, params \\ %{}) do
-    search_api("list", query, params)
+  def lists(client, query, params \\ []) do
+    search_api(client, "list", query, params)
   end
 
-  def movies(query, params \\ %{}) do
-    search_api("movie", query, params)
+  def movies(client, query, params \\ []) do
+    search_api(client, "movie", query, params)
   end
 
-  def multi(query, params \\ %{}) do
-    search_api("multi", query, params)
+  def multi(client, query, params \\ []) do
+    search_api(client, "multi", query, params)
   end
 
-  def persons(query, params \\ %{}) do
-    search_api("person", query, params)
+  def persons(client, query, params \\ []) do
+    search_api(client, "person", query, params)
   end
 
-  def tv(query, params \\ %{}) do
-    search_api("tv", query, params)
+  def tv(client, query, params \\ []) do
+    search_api(client, "tv", query, params)
   end
 
-  defp search_api(endpoint, query, params \\ %{}) do
-    params = Map.merge(params, %{"query" => query})
-    get!("search/#{endpoint}?#{URI.encode_query(params)}").body
+  defp search_api(client, endpoint, query, params \\ []) do
+    params = Keyword.put(params, :query, query)
+    Tesla.get!(client, "search/#{endpoint}", query: params).body
   end
 end

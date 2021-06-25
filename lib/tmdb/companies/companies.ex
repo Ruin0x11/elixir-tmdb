@@ -1,6 +1,4 @@
 defmodule Tmdb.Companies do
-  use Tmdb.Base
-
   @doc ~S"""
   Find companies by ID
     ## Required Parameters
@@ -13,8 +11,8 @@ defmodule Tmdb.Companies do
       "logo_path" => "/x1ynrDnk4RgbsnMI9yrdcdEm6Fu.png", "name" => "Marvel Studios",
       "parent_company" => nil}
   """
-  def find(id) do
-    get!("company/#{id}?").body
+  def find(client, id) do
+    Tesla.get!(client, "company/#{id}").body
   end
 
   @doc ~S"""
@@ -34,7 +32,7 @@ defmodule Tmdb.Companies do
        ], "total_pages" => 1,
       "total_results" => 3}
   """
-  def movies(id) do
-    get!("company/#{id}/movies?").body
+  def movies(client, id) do
+    Tesla.get!(client, "company/#{id}/movies").body
   end
 end

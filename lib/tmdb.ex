@@ -1,7 +1,5 @@
 defmodule Tmdb do
-  use Tmdb.Base
-
-  def configuration do
-    get!("configuration?").body
+  def configuration(client) do
+    Tesla.get!(client, "configuration").body
   end
 end

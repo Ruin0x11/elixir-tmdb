@@ -1,8 +1,6 @@
 defmodule Tmdb.Collections do
-  use Tmdb.Base
-
-  def find(id) do
-    get!("collection/#{id}?").body
+  def find(client, id) do
+    Tesla.get!(client, "collection/#{id}").body
   end
 
   @doc ~S"""
@@ -25,7 +23,7 @@ defmodule Tmdb.Collections do
       ], "total_pages" => 1,
       "total_results" => 18}
   """
-  def images(id, params \\ %{}) do
-    get!("collection/#{id}/images?#{URI.encode_query(params)}").body
+  def images(client, id, params \\ []) do
+    Tesla.get!(client, "collection/#{id}/images", query: params).body
   end
 end

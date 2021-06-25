@@ -1,43 +1,41 @@
 defmodule Tmdb.Movies do
-  use Tmdb.Base
-
-  def find(id) do
-    get!("movie/#{id}?append_to_response=trailers").body
+  def find(client, id) do
+    Tesla.get!(client, "movie/#{id}", query: [append_to_response: "trailers"]).body
   end
 
-  def genres do
-    get!("genre/movie/list?").body
+  def genres(client) do
+    Tesla.get!(client, "genre/movie/list").body
   end
 
-  def images(id, params \\ %{}) do
-    get!("movie/#{id}/images?#{URI.encode_query(params)}").body
+  def images(client, id, params \\ []) do
+    Tesla.get!(client, "movie/#{id}/images", query: params).body
   end
 
-  def latest(params \\ %{}) do
-    get!("movie/latest?#{URI.encode_query(params)}&append_to_response=videos").body
+  def latest(client, params \\ []) do
+    Tesla.get!(client, "movie/latest", query: Keyword.put(params, :append_to_response, "videos")).body
   end
 
-  def now_playing(params \\ %{}) do
-    get!("movie/now_playing?#{URI.encode_query(params)}&append_to_response=videos").body
+  def now_playing(client, params \\ []) do
+    Tesla.get!(client, "movie/now_playing", query: Keyword.put(params, :append_to_response, "videos")).body
   end
 
-  def popular(params \\ %{}) do
-    get!("movie/popular?#{URI.encode_query(params)}&append_to_response=videos").body
+  def popular(client, params \\ []) do
+    Tesla.get!(client, "movie/popular", query: Keyword.put(params, :append_to_response, "videos")).body
   end
 
-  def similar(id, params \\ %{}) do
-    get!("movie/#{id}/similar?#{URI.encode_query(params)}&append_to_response=videos").body
+  def similar(client, id, params \\ []) do
+    Tesla.get!(client, "movie/#{id}/similar", query: Keyword.put(params, :append_to_response, "videos")).body
   end
 
-  def top(params \\ %{}) do
-    get!("movie/top_rated?#{URI.encode_query(params)}&append_to_response=videos").body
+  def top(client, params \\ []) do
+    Tesla.get!(client, "movie/top_rated", query: Keyword.put(params, :append_to_response, "videos")).body
   end
 
-  def upcoming(params \\ %{}) do
-    get!("movie/upcoming?#{URI.encode_query(params)}&append_to_response=videos").body
+  def upcoming(client, params \\ []) do
+    Tesla.get!(client, "movie/upcoming", query: Keyword.put(params, :append_to_response, "videos")).body
   end
 
-  def videos(id, params \\ %{}) do
-    get!("movie/#{id}/videos?#{URI.encode_query(params)}").body
+  def videos(client, id, params \\ []) do
+    Tesla.get!(client, "movie/#{id}/videos", query: params).body
   end
 end

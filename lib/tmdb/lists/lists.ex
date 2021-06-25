@@ -1,11 +1,9 @@
 defmodule Tmdb.Lists do
-  use Tmdb.Base
-
-  def find(id) do
-    get!("list/#{id}?").body
+  def find(client, id) do
+    Tesla.get!(client, "list/#{id}").body
   end
 
-  def item_status(list_id, movie_id) do
-    get!("list/#{list_id}/item_status?movie_id=#{movie_id}").body
+  def item_status(client, list_id, movie_id) do
+    Tesla.get!(client, "list/#{list_id}/item_status", query: [movie_id: movie_id]).body
   end
 end

@@ -1,15 +1,13 @@
 defmodule Tmdb.People do
-  use Tmdb.Base
-
-  def find(id, params \\ %{}) do
-    get!("person/#{id}?#{URI.encode_query(params)}").body
+  def find(client, id, params \\ []) do
+    Tesla.get!(client, "person/#{id}", query: params).body
   end
 
-  def popular(params \\ %{}) do
-    get!("person/popular?#{URI.encode_query(params)}").body
+  def popular(client, params \\ []) do
+    Tesla.get!(client, "person/popular", query: params).body
   end
 
-  def latest(params \\ %{}) do
-    get!("person/latest?#{URI.encode_query(params)}").body
+  def latest(client, params \\ []) do
+    Tesla.get!(client, "person/latest", query: params).body
   end
 end

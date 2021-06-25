@@ -8,7 +8,6 @@ defmodule Tmdb.Keywords do
   Tmdb.Keywords.search("fight") # Search for keywords by text
   Tmdb.Keywords.movies(1721) # find movies by a keyword ID
   """
-  use Tmdb.Base
 
   @doc ~S"""
   Get the basic information for a specific keyword id.
@@ -18,8 +17,8 @@ defmodule Tmdb.Keywords do
     iex> Tmdb.Keywords.find(1721)
     %{"id" => 1721, "name" => "fight"}
   """
-  def find(id) do
-    get!("keyword/#{id}?").body
+  def find(client, id) do
+    Tesla.get!(client, "keyword/#{id}").body
   end
 
   @doc ~S"""
@@ -53,7 +52,7 @@ defmodule Tmdb.Keywords do
        %{"id" => 189274, "name" => "hotel fight"}], "total_pages" => 6,
       "total_results" => 109}
   """
-  def movies(id) do
-    get!("keyword/#{id}/movies?").body
+  def movies(client, id) do
+    Tesla.get!(client, "keyword/#{id}/movies").body
   end
 end

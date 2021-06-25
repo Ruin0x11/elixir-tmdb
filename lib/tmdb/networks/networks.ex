@@ -1,6 +1,4 @@
 defmodule Tmdb.Networks do
-  use Tmdb.Base
-
   @doc ~S"""
   Find networks by ID
     ## Required Parameters
@@ -11,7 +9,7 @@ defmodule Tmdb.Networks do
     iex(3)> Tmdb.Networks.find(4)
     %{"id" => 4, "name" => "BBC One"}
   """
-  def find(id) do
-    get!("network/#{id}?").body
+  def find(client, id) do
+    Tesla.get!(client, "network/#{id}").body
   end
 end
