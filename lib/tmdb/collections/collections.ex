@@ -1,6 +1,6 @@
 defmodule Tmdb.Collections do
   def find(client, id) do
-    Tesla.get!(client, "collection/#{id}").body
+    Tesla.get(client, "collection/#{id}").body
   end
 
   @doc ~S"""
@@ -24,6 +24,6 @@ defmodule Tmdb.Collections do
       "total_results" => 18}
   """
   def images(client, id, params \\ []) do
-    Tesla.get!(client, "collection/#{id}/images", query: params).body
+    Tesla.get(client, "collection/#{id}/images", query: params)
   end
 end

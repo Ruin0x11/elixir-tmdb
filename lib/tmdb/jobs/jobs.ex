@@ -25,6 +25,6 @@ defmodule Tmdb.Jobs do
         ...
   """
   def list(client) do
-    Tesla.get!(client, "job/list").body
+    Tesla.get(client, "job/list")
   end
 end

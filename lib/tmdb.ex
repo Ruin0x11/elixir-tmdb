@@ -1,5 +1,5 @@
 defmodule Tmdb do
   def configuration(client) do
-    Tesla.get!(client, "configuration").body
+    Tesla.get(client, "configuration")
   end
 end

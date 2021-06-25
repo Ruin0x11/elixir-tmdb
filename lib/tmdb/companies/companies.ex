@@ -12,7 +12,7 @@ defmodule Tmdb.Companies do
       "parent_company" => nil}
   """
   def find(client, id) do
-    Tesla.get!(client, "company/#{id}").body
+    Tesla.get(client, "company/#{id}").body
   end
 
   @doc ~S"""
@@ -33,6 +33,6 @@ defmodule Tmdb.Companies do
       "total_results" => 3}
   """
   def movies(client, id) do
-    Tesla.get!(client, "company/#{id}/movies").body
+    Tesla.get(client, "company/#{id}/movies")
   end
 end
