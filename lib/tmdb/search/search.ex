@@ -33,6 +33,6 @@ defmodule Tmdb.Search do
 
   defp search_api(client, endpoint, query, params \\ []) do
     params = Keyword.put(params, :query, query)
-    Tesla.get(client, "search/#{endpoint}", query: params)
+    Tmdb.Client.get(client, "search/#{endpoint}", query: params)
   end
 end

@@ -10,6 +10,6 @@ defmodule Tmdb.Networks do
     %{"id" => 4, "name" => "BBC One"}
   """
   def find(client, id) do
-    Tesla.get(client, "network/#{id}")
+    Tmdb.Client.get(client, "network/#{id}")
   end
 end

@@ -18,7 +18,7 @@ defmodule Tmdb.Keywords do
     %{"id" => 1721, "name" => "fight"}
   """
   def find(client, id) do
-    Tesla.get(client, "keyword/#{id}").body
+    Tmdb.Client.get(client, "keyword/#{id}").body
   end
 
   @doc ~S"""
@@ -53,6 +53,6 @@ defmodule Tmdb.Keywords do
       "total_results" => 109}
   """
   def movies(client, id) do
-    Tesla.get(client, "keyword/#{id}/movies")
+    Tmdb.Client.get(client, "keyword/#{id}/movies")
   end
 end

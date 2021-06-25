@@ -12,4 +12,9 @@ defmodule Tmdb.Client do
     ]
     |> Tesla.client
   end
-end
+
+  def get(client, path, opts \\ []) do
+    Tesla.get(client, path, opts)
+    |> (fn {status, env} -> {status, env.body} end).()
+  end
+ end
