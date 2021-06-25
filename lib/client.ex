@@ -14,7 +14,9 @@ defmodule Tmdb.Client do
   end
 
   def get(client, path, opts \\ []) do
-    Tesla.get(client, path, opts)
-    |> (fn {status, env} -> {status, env.body} end).()
+    case Tesla.get(client, path, opts) do
+      {:ok, %{body: %{"success" => false}} = env} -> {:err, env.body}
+      {stat, env} -> {stat, env.body}
+    end
   end
- end
+end
